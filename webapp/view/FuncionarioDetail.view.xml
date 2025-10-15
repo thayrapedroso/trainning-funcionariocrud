@@ -1,0 +1,50 @@
+<mvc:View
+    controllerName="funcionariocrud.controller.FuncionarioDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    displayBlock="true">
+
+    <Page
+        id="detailPage"
+        title="{i18n>detalheFuncionario}"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+
+        <content>
+            <form:SimpleForm
+                id="formFuncionario"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                width="100%"
+                title="{i18n>dadosFuncionario}">
+
+                <Label id="_IDGenLabel1" text="{i18n>nome}" />
+                <Input id="_IDGenInput" value="{path: 'NAME', mode: 'sap.ui.model.BindingMode.TwoWay'}" required="true" />
+
+                <Label id="_IDGenLabel2" text="{i18n>departamento}" />
+                <Input id="_IDGenInput1" value="{path: 'DEPARTMENT', mode: 'sap.ui.model.BindingMode.TwoWay'}" />
+
+                <Label id="_IDGenLabel3" text="{i18n>salario}" />
+                <Input id="_IDGenInput2" value="{path: 'SALARY', mode: 'sap.ui.model.BindingMode.TwoWay'}" type="Number" />
+            </form:SimpleForm>
+
+        </content>
+
+        <footer>
+            <Toolbar id="_IDGenToolbar">
+                <ToolbarSpacer id="_IDGenToolbarSpacer" />
+                <Button id="_IDGenButton"
+                    text="{i18n>salvar}"
+                    type="Emphasized"
+                    icon="sap-icon://save"
+                    press=".onSave" />
+                <Button id="_IDGenButton1"
+                    text="{i18n>cancelar}"
+                    type="Transparent"
+                    icon="sap-icon://sys-cancel"
+                    press=".onCancel" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

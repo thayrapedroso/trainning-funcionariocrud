@@ -12,7 +12,7 @@
                 <Property Name="SALARY" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="2" sap:unicode="false"/>
             </EntityType>
             <EntityContainer Name="ZGW_HELLOWORLD00_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="FuncionarioSet" EntityType="ZGW_HELLOWORLD00_SRV.Funcionario" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="FuncionarioSet" EntityType="ZGW_HELLOWORLD00_SRV.Funcionario" sap:searchable="true" sap:addressable="false" sap:content-version="1"/>
             </EntityContainer>
             <atom:link rel="self" href="http://s4hana.ides.com:9222/sap/opu/odata/sap/ZGW_HELLOWORLD00_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
             <atom:link rel="latest-version" href="http://s4hana.ides.com:9222/sap/opu/odata/sap/ZGW_HELLOWORLD00_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
