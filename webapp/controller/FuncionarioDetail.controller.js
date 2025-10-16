@@ -81,7 +81,7 @@ sap.ui.define(
         const oModel = this.getView().getModel();
 
         // Caminho da entidade a ser atualizada
-        const sPath = oEvent.getSource().getBindingContext(); // ou conforme sua key
+        const sPath = oEvent.getSource().getBindingContext().getPath(); // ou conforme sua key
 
         // Dados novos
         const oData = {
