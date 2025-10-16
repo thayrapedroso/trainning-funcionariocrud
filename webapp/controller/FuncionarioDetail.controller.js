@@ -59,18 +59,9 @@ sap.ui.define(
       /* ====================== CRIAÇÃO ============================ */
       /* =========================================================== */
       _onCreateMatched: function () {
-        const oModel = this.getView().getModel();
-
-        // Cria um novo registro localmente
-        const oContext = oModel.createEntry("/FuncionarioSet", {
-          properties: {
-            NAME: "",
-            DEPARTMENT: "",
-            SALARY: "0.00",
-          },
-        });
-
-        this.getView().setBindingContext(oContext);
+        this.getView().byId("inputName").setValue("");
+        this.getView().byId("inputDepartment").setValue("");
+        this.getView().byId("inputSalary").setValue("");
       },
 
       /* =========================================================== */
