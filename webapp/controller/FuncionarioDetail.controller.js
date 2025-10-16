@@ -99,17 +99,15 @@ sap.ui.define(
         } else {
           // Chamada do create
           oModel.create(sPath, oData, {
-            success: async function () {
+            success: async () => {
               await sap.m.MessageToast.show("Registro incluído com sucesso!");
-              that.onNavBack();
+              this.onNavBack();
             },
             error: function (oError) {
               sap.m.MessageBox.error("Erro ao incluir: " + oError.message);
             },
           });
         }
-
-
       },
 
       /* =========================================================== */
