@@ -26,30 +26,14 @@ sap.ui.define(
       /* =========================================================== */
       _onEditMatched: function (oEvent) {
         const sId = oEvent.getParameter("arguments").ID;
+        const sPath = `/FuncionarioSet(${sId})`;
         const oView = this.getView();
-        const oModel = oView.getModel();
-
-        // 🧠 Garante o formato correto da chave
-        let sPath = `/FuncionarioSet(${sId})`;
-        const oMeta = oModel.getMetaModel();
-        const oEntityType = oMeta.getODataEntityType(
-          "ZGW_HELLOWORLD00_SRV.Funcionario"
-        );
-        const oKeyProp = oEntityType.key.propertyRef[0].name;
-        const oKeyType = oEntityType.property.find(
-          (p) => p.name === oKeyProp
-        )?.type;
-        if (oKeyType && oKeyType.includes("String")) {
-          sPath = `/FuncionarioSet('${sId}')`;
-        }
-
-        console.log("Binding path:", sPath);
 
         oView.bindElement({
           path: sPath,
           parameters: {
-            expand: "",
-            updateGroupId: "updateGroup",
+            expand: "", // opcional
+            updateGroupId: "update", // força agrupamento de updates
           },
           events: {
             dataRequested: () => oView.setBusy(true),
@@ -57,6 +41,8 @@ sap.ui.define(
           },
         });
 
+        // Garante TwoWay no modelo (alguns templates criam como OneWay)
+        const oModel = oView.getModel();
         oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
       },
 
@@ -90,45 +76,29 @@ sap.ui.define(
       /* =========================================================== */
       /* ======================== SALVAR =========================== */
       /* =========================================================== */
-      onSave: function () {
+      onSave: function (oEvent) {
+        // Supondo que você tenha o modelo OData V2 registrado no manifest
         const oModel = this.getView().getModel();
-        const oCtx = this.getView().getBindingContext();
 
-        if (!oCtx) {
-          sap.m.MessageBox.error("Nenhum contexto encontrado para atualização");
-          return;
-        }
+        // Caminho da entidade a ser atualizada
+        const sPath = oEvent.getSource().getBindingContext(); // ou conforme sua key
 
-        const sPath = oCtx.getPath();
-        const oData = oCtx.getObject();
+        // Dados novos
+        const oData = {
+          "NAME": this.getView().byId("inputName").getValue(),
+          "DEPARTMENT": this.getView().byId("inputDepartment").getValue(),
+          "SALARY": this.getView().byId("inputSalary").getValue()
+        };
 
-        console.log("Salvando:", sPath, oData);
-
-        // Tenta via submitChanges primeiro (caso o modelo rastreie pendências)
-        if (oModel.hasPendingChanges()) {
-          oModel.submitChanges({
-            success: () => {
-              sap.m.MessageToast.show("Alterações salvas com sucesso");
-              this.onNavBack();
-            },
-            error: (oError) => {
-              console.error("Erro no submitChanges:", oError);
-              sap.m.MessageBox.error("Erro ao salvar alterações");
-            },
-          });
-        } else {
-          // Fallback: chama update() diretamente
-          oModel.update(sPath, oData, {
-            success: () => {
-              sap.m.MessageToast.show("Atualização realizada com sucesso");
-              this.onNavBack();
-            },
-            error: (e) => {
-              console.error("Erro no update:", e);
-              sap.m.MessageBox.error("Erro ao atualizar o registro");
-            },
-          });
-        }
+        // Chamada do update
+        oModel.update(sPath, oData, {
+          success: function () {
+            sap.m.MessageToast.show("Registro atualizado com sucesso!");
+          },
+          error: function (oError) {
+            sap.m.MessageBox.error("Erro ao atualizar: " + oError.message);
+          },
+        });
       },
 
       /* =========================================================== */

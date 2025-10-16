@@ -12,22 +12,22 @@
         navButtonPress=".onNavBack">
 
         <content>
-            <form:SimpleForm
-                id="formFuncionario"
+            <form:SimpleForm id="_IDGenSimpleForm1"
                 editable="true"
                 layout="ResponsiveGridLayout"
                 width="100%"
                 title="{i18n>dadosFuncionario}">
 
-                <Label id="_IDGenLabel1" text="{i18n>nome}" />
-                <Input id="_IDGenInput" value="{path: 'NAME', mode: 'sap.ui.model.BindingMode.TwoWay'}" required="true" />
+                <Label id="_IDGenLabel" text="{i18n>nome}" />
+                <Input id="inputName" value="{path: 'NAME', mode: 'sap.ui.model.BindingMode.TwoWay'}" required="true" />
 
-                <Label id="_IDGenLabel2" text="{i18n>departamento}" />
-                <Input id="_IDGenInput1" value="{path: 'DEPARTMENT', mode: 'sap.ui.model.BindingMode.TwoWay'}" />
+                <Label id="_IDGenLabel1" text="{i18n>departamento}" />
+                <Input id="inputDepartment" value="{path: 'DEPARTMENT', mode: 'sap.ui.model.BindingMode.TwoWay'}" required="true" />
 
-                <Label id="_IDGenLabel3" text="{i18n>salario}" />
-                <Input id="_IDGenInput2" value="{path: 'SALARY', mode: 'sap.ui.model.BindingMode.TwoWay'}" type="Number" />
+                <Label id="_IDGenLabel2" text="{i18n>salario}" />
+                <Input id="inputSalary" value="{path: 'SALARY', mode: 'sap.ui.model.BindingMode.TwoWay'}" type="Number" required="true" />
             </form:SimpleForm>
+
 
         </content>
 
