@@ -70,26 +70,46 @@ sap.ui.define(
       onSave: function (oEvent) {
         // Supondo que você tenha o modelo OData V2 registrado no manifest
         const oModel = this.getView().getModel();
-
-        // Caminho da entidade a ser atualizada
-        const sPath = oEvent.getSource().getBindingContext().getPath(); // ou conforme sua key
+        const that = this;
 
         // Dados novos
         const oData = {
-          "NAME": this.getView().byId("inputName").getValue(),
-          "DEPARTMENT": this.getView().byId("inputDepartment").getValue(),
-          "SALARY": this.getView().byId("inputSalary").getValue()
+          NAME: this.getView().byId("inputName").getValue(),
+          DEPARTMENT: this.getView().byId("inputDepartment").getValue(),
+          SALARY: this.getView().byId("inputSalary").getValue(),
         };
 
-        // Chamada do update
-        oModel.update(sPath, oData, {
-          success: function () {
-            sap.m.MessageToast.show("Registro atualizado com sucesso!");
-          },
-          error: function (oError) {
-            sap.m.MessageBox.error("Erro ao atualizar: " + oError.message);
-          },
-        });
+        // Caminho da entidade a ser atualizada
+        let sPath = "/FuncionarioSet";
+        const oContext = this.getView().getBindingContext();
+        if (oContext) {
+          sPath = oContext.getPath();
+
+          // Chamada do update
+          oModel.update(sPath, oData, {
+            success: async function () {
+              await sap.m.MessageToast.show("Registro atualizado com sucesso!");
+              that.onNavBack();
+            },
+            error: function (oError) {
+              sap.m.MessageBox.error("Erro ao atualizar: " + oError.message);
+            },
+          });
+
+        } else {
+          // Chamada do create
+          oModel.create(sPath, oData, {
+            success: async function () {
+              await sap.m.MessageToast.show("Registro incluído com sucesso!");
+              that.onNavBack();
+            },
+            error: function (oError) {
+              sap.m.MessageBox.error("Erro ao incluir: " + oError.message);
+            },
+          });
+        }
+
+
       },
 
       /* =========================================================== */
